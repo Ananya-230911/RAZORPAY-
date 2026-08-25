@@ -26,7 +26,7 @@ def test_investigate_and_decide_skips_without_api_key():
 
 def test_investigate_and_decide_skips_when_flag_passed():
     classified = classify(run_matcher())
-    with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "fake"}):
+    with patch.dict(os.environ, {"GROQ_API_KEY": "fake"}):
         decided = run_module.investigate_and_decide(classified, skip_ai=True)
     assert decided is None
 
@@ -35,7 +35,7 @@ def test_investigate_and_decide_calls_ai_when_key_present():
     classified = classify(run_matcher())
     fake_result = [{"transaction_id": "pay_0001", "status": "RESOLVED", "confidence": 0.9,
                      "probable_cause": "fee", "evidence_used": ["fee_policy.md"], "recommendation": "ok"}]
-    with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "fake"}), \
+    with patch.dict(os.environ, {"GROQ_API_KEY": "fake"}), \
          patch("run.investigate_all", return_value=fake_result) as mock_investigate:
         decided = run_module.investigate_and_decide(classified, skip_ai=False)
     mock_investigate.assert_called_once()

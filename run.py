@@ -12,7 +12,7 @@ Usage:
     python run.py --skip-dashboard   # run the pipeline, print the report, exit
     python run.py --seed 7           # regenerate the synthetic dataset first
 
-If ANTHROPIC_API_KEY isn't set and --skip-ai wasn't passed, the pipeline
+If GROQ_API_KEY isn't set and --skip-ai wasn't passed, the pipeline
 does NOT crash -- it prints a clear message, skips Module 5/6, and still
 populates the database and dashboard with reconciliation + classification
 results (v1 metrics). See docs/FAILURES.md for why this matters.
@@ -60,13 +60,13 @@ def investigate_and_decide(classified: pd.DataFrame, skip_ai: bool):
     if skip_ai:
         print("[3/6] Skipping AI investigation (--skip-ai passed).")
         return None
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("[3/6] Skipping AI investigation: ANTHROPIC_API_KEY is not set.")
+    if not os.environ.get("GROQ_API_KEY"):
+        print("[3/6] Skipping AI investigation: GROQ_API_KEY is not set.")
         print("      Copy .env.example to .env and add a key to enable Module 5/6.")
         print("      The dashboard will still show all reconciliation/classification results.")
         return None
 
-    print(f"[3/6] Investigating {len(exception_rows)} exceptions with Claude...")
+    print(f"[3/6] Investigating {len(exception_rows)} exceptions with Groq (Llama 3.3 70B)...")
     try:
         investigated = investigate_all(exception_rows)
     except MissingAPIKeyError as e:

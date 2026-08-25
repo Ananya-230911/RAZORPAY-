@@ -143,9 +143,9 @@ def run(data_dir: str = DEFAULT_DATA_DIR, ai_results: pd.DataFrame = None) -> di
 def run_with_ai(data_dir: str = DEFAULT_DATA_DIR, model: str = None) -> dict:
     """
     v2: full pipeline, timed end-to-end -- matcher -> classifier ->
-    investigator (Module 5, real Claude calls) -> decision (Module 6) ->
+    investigator (Module 5, real Groq/Llama calls) -> decision (Module 6) ->
     evaluate against ground truth, including AI-resolution metrics.
-    Requires ANTHROPIC_API_KEY (see .env.example); raises
+    Requires GROQ_API_KEY (see .env.example); raises
     agents.investigator.MissingAPIKeyError with a clear message if unset.
     """
     from agents.decision import decide_all
@@ -205,7 +205,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate FinControl AI against ground truth")
     parser.add_argument("--data-dir", default=DEFAULT_DATA_DIR)
     parser.add_argument("--with-ai", action="store_true",
-                         help="Also run the investigation agent + decision layer (requires ANTHROPIC_API_KEY)")
+                         help="Also run the investigation agent + decision layer (requires GROQ_API_KEY)")
     args = parser.parse_args()
 
     if args.with_ai:

@@ -1,15 +1,17 @@
 """
 Unit tests for agents/investigator.py (Module 5).
 
-These tests never call the real Claude API -- the client is mocked so the
+These tests never call the real Groq API -- the client is mocked so the
 tests are fast, free, and deterministic. What they actually verify is the
 part that matters most: the code-side enforcement of the "never guess"
-rule (_enforce_evidence_rule), independent of whatever the model says.
+rule (_enforce_evidence_rule) and malformed-JSON handling, independent of
+whatever the model actually says.
 
 Run:
     pytest tests/test_investigator.py -v
 """
 
+import json
 import os
 import sys
 from unittest.mock import MagicMock, patch
@@ -22,6 +24,7 @@ from agents.investigator import (
     InvestigationResult,
     MissingAPIKeyError,
     _enforce_evidence_rule,
+    _parse_llm_json,
     investigate_all,
     investigate_exception,
 )
@@ -40,12 +43,25 @@ def _row(**overrides):
     return row
 
 
-def _mock_client(parsed_output: InvestigationResult):
+def _mock_client(content: str):
+    """Build a mock Groq client whose chat.completions.create() returns
+    `content` as the assistant message text (mirrors the OpenAI-compatible
+    response shape Groq uses)."""
     client = MagicMock()
     response = MagicMock()
-    response.parsed_output = parsed_output
-    client.messages.parse.return_value = response
+    response.choices = [MagicMock(message=MagicMock(content=content))]
+    client.chat.completions.create.return_value = response
     return client
+
+
+def _valid_json(**overrides):
+    payload = {
+        "transaction_id": "pay_0001", "probable_cause": "platform fee deducted",
+        "evidence_used": ["fee_policy.md"], "confidence": 0.9,
+        "recommendation": "auto-explain, no action needed", "status": "RESOLVED",
+    }
+    payload.update(overrides)
+    return json.dumps(payload)
 
 
 # --- _enforce_evidence_rule: the core safety net -----------------------------
@@ -98,19 +114,52 @@ def test_low_confidence_with_no_evidence_is_untouched():
     assert out.confidence == 0.2  # left as-is, not zeroed
 
 
+# --- _parse_llm_json: defensive parsing ---------------------------------------
+
+def test_parse_llm_json_plain():
+    assert _parse_llm_json('{"a": 1}') == {"a": 1}
+
+
+def test_parse_llm_json_strips_markdown_fences():
+    assert _parse_llm_json('```json\n{"a": 1}\n```') == {"a": 1}
+
+
+def test_parse_llm_json_strips_bare_fences():
+    assert _parse_llm_json('```\n{"a": 1}\n```') == {"a": 1}
+
+
 # --- investigate_exception: mocked end-to-end ---------------------------------
 
 def test_investigate_exception_happy_path():
-    fake_result = InvestigationResult(
-        transaction_id="pay_0001", probable_cause="platform fee deducted",
-        evidence_used=["fee_policy.md"], confidence=0.9,
-        recommendation="auto-explain, no action needed", status="RESOLVED",
-    )
-    client = _mock_client(fake_result)
+    client = _mock_client(_valid_json())
     out = investigate_exception(_row(), client=client)
     assert out["status"] == "RESOLVED"
     assert out["transaction_id"] == "pay_0001"
-    client.messages.parse.assert_called_once()
+    client.chat.completions.create.assert_called_once()
+
+
+def test_investigate_exception_recovers_from_malformed_json_on_retry():
+    """First response is garbage (e.g. the model ignored JSON-mode
+    instructions), second is valid -- the retry should save the call
+    instead of the row being lost."""
+    client = _mock_client("not json at all")
+    response_ok = MagicMock()
+    response_ok.choices = [MagicMock(message=MagicMock(content=_valid_json()))]
+    client.chat.completions.create.side_effect = [client.chat.completions.create.return_value, response_ok]
+
+    out = investigate_exception(_row(), client=client)
+    assert out["status"] == "RESOLVED"
+    assert client.chat.completions.create.call_count == 2
+
+
+def test_investigate_exception_gives_up_honestly_after_retries_exhausted():
+    """If every attempt returns unparseable JSON, fail as UNRESOLVED --
+    never silently crash the batch or fabricate a result."""
+    client = _mock_client("still not json")
+    out = investigate_exception(_row(), client=client)
+    assert out["status"] == "UNRESOLVED"
+    assert out["confidence"] == 0.0
+    assert client.chat.completions.create.call_count == 2  # 1 + MAX_RETRIES
 
 
 def test_investigate_exception_rejects_non_exception_row():
@@ -133,16 +182,12 @@ def test_investigate_all_fails_fast_without_api_key():
 
 
 def test_investigate_all_skips_matched_rows():
-    with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "fake-key-for-test"}):
-        with patch("agents.investigator.anthropic.Anthropic") as MockAnthropic:
-            fake_result = InvestigationResult(
-                transaction_id="pay_0001", probable_cause="fee", evidence_used=["fee_policy.md"],
-                confidence=0.9, recommendation="ok", status="RESOLVED",
-            )
-            instance = MockAnthropic.return_value
+    with patch.dict(os.environ, {"GROQ_API_KEY": "fake-key-for-test"}):
+        with patch("agents.investigator.groq.Groq") as MockGroq:
+            instance = MockGroq.return_value
             response = MagicMock()
-            response.parsed_output = fake_result
-            instance.messages.parse.return_value = response
+            response.choices = [MagicMock(message=MagicMock(content=_valid_json()))]
+            instance.chat.completions.create.return_value = response
 
             rows = [_row(), {"transaction_id": "pay_0002", "exception_type": "NONE"}]
             results = investigate_all(rows, verbose=False)

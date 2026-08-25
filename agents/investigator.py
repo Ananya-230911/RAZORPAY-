@@ -1,46 +1,54 @@
 """
 FinControl AI - Investigation Agent
 =====================================
-Module 5 of the pipeline. THE ONLY PLACE CLAUDE IS CALLED IN THIS SYSTEM.
+Module 5 of the pipeline. THE ONLY PLACE AN LLM IS CALLED IN THIS SYSTEM.
 Everything upstream (matching, classification) and downstream (routing)
 is deterministic Python -- see reconciliation/ and agents/decision.py.
 
-The agent's job: given one classified exception, its raw records, and
-evidence retrieved from rag/retriever.py, produce a grounded explanation
--- or honestly say it cannot. Two independent layers enforce the
-"never guess" rule from the master build prompt:
-  1. The system prompt instructs the model to cite evidence and return
-     UNRESOLVED when evidence is weak or absent.
-  2. `_enforce_evidence_rule()` re-checks the model's own output in plain
-     Python and forcibly downgrades to UNRESOLVED if the rule was
-     violated -- so a bad output from the LLM can never reach a human as
-     a confident, unsupported claim.
+Uses Groq (free tier) running Llama 3.3 70B, via Groq's OpenAI-compatible
+chat completions API with JSON mode. Groq doesn't offer a schema-enforced
+structured-output helper (unlike some other providers), so this module
+does its own two-layer validation instead of trusting the raw model
+output:
+  1. The system prompt instructs the model to cite evidence, match an
+     exact JSON schema, and return UNRESOLVED when evidence is weak/absent.
+  2. In code: the JSON is parsed and validated against a pydantic schema
+     (retried once on malformed JSON before giving up honestly), then
+     `_enforce_evidence_rule()` re-checks the model's own claims and
+     forcibly downgrades to UNRESOLVED if the "never guess" rule was
+     violated -- a bad LLM output can never reach a human as a confident,
+     unsupported claim.
 
 Run directly for a quick sanity check against one hand-built exception
-(requires ANTHROPIC_API_KEY in .env):
+(requires GROQ_API_KEY in .env -- free at console.groq.com):
     python -m agents.investigator
 """
 
+import json
 import os
 from typing import List, Literal, Optional
 
-import anthropic
+import groq
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from rag.retriever import PolicyRetriever, build_query
 
 load_dotenv()
 
-DEFAULT_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-opus-5")
+DEFAULT_MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
 
 # Hard rule from the master build prompt: a RESOLVED status with confidence
 # above this bar requires non-empty cited evidence, or it gets downgraded.
 CONFIDENCE_REQUIRES_EVIDENCE_ABOVE = 0.5
 
+# How many times to retry the API call if the model returns JSON that
+# doesn't parse or doesn't match the schema, before honestly giving up.
+MAX_RETRIES = 1
+
 
 class MissingAPIKeyError(RuntimeError):
-    """Raised when ANTHROPIC_API_KEY is not configured. See .env.example."""
+    """Raised when GROQ_API_KEY is not configured. See .env.example."""
 
 
 class InvestigationResult(BaseModel):
@@ -56,7 +64,16 @@ class InvestigationResult(BaseModel):
     status: Literal["RESOLVED", "UNRESOLVED"]
 
 
-SYSTEM_PROMPT = """You are the Investigation Agent inside FinControl AI, a finance \
+JSON_SCHEMA_DESCRIPTION = """{
+  "transaction_id": string,
+  "probable_cause": string or null,
+  "evidence_used": array of strings (exact source filenames, e.g. "fee_policy.md"),
+  "confidence": number between 0 and 1,
+  "recommendation": string,
+  "status": "RESOLVED" or "UNRESOLVED"
+}"""
+
+SYSTEM_PROMPT = f"""You are the Investigation Agent inside FinControl AI, a finance \
 reconciliation system. You investigate ONE payment/invoice/settlement exception at a \
 time, using ONLY the evidence snippets you are given.
 
@@ -72,7 +89,9 @@ finance system and a wrong guess about money is dangerous.
 4. Never perform arithmetic to decide the amounts or dates are correct/incorrect -- \
 that has already been done deterministically upstream. Your job is only to explain \
 WHY the numbers differ, using policy evidence.
-5. Output structured JSON only, matching the required schema exactly."""
+5. Respond with ONLY a single JSON object, no markdown fences, no commentary before or \
+after it, matching exactly this schema:
+{JSON_SCHEMA_DESCRIPTION}"""
 
 
 def _build_user_prompt(row: dict, evidence: list) -> str:
@@ -94,7 +113,22 @@ is_duplicate: {row.get('is_duplicate')}
 RETRIEVED EVIDENCE
 {evidence_block}
 
-Investigate this exception. Respond with the required JSON schema only."""
+Investigate this exception. Respond with the required JSON object only."""
+
+
+def _parse_llm_json(raw_text: str) -> dict:
+    """
+    Groq's JSON mode guarantees syntactically valid JSON, but not schema
+    conformance, and models occasionally wrap output in markdown fences
+    despite instructions not to -- strip those defensively before parsing.
+    """
+    text = raw_text.strip()
+    if text.startswith("```"):
+        text = text.strip("`")
+        if text.lower().startswith("json"):
+            text = text[4:]
+        text = text.strip()
+    return json.loads(text)
 
 
 def _enforce_evidence_rule(result: InvestigationResult, evidence: list) -> InvestigationResult:
@@ -127,10 +161,19 @@ def _enforce_evidence_rule(result: InvestigationResult, evidence: list) -> Inves
     return result
 
 
+def _fallback_unresolved(transaction_id: str, reason: str) -> dict:
+    """Used whenever we cannot trust the model's output at all (malformed
+    JSON after retries, schema violation, API failure) -- fail honest, not silent."""
+    return InvestigationResult(
+        transaction_id=transaction_id, probable_cause=None, evidence_used=[], confidence=0.0,
+        recommendation=f"NEEDS_HUMAN_REVIEW -- {reason}", status="UNRESOLVED",
+    ).model_dump()
+
+
 def investigate_exception(
     row: dict,
     retriever: PolicyRetriever = None,
-    client: anthropic.Anthropic = None,
+    client: groq.Groq = None,
     model: str = DEFAULT_MODEL,
 ) -> dict:
     """
@@ -146,24 +189,39 @@ def investigate_exception(
     query = build_query(row["exception_type"], row)
     evidence = retriever.retrieve(query)
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY")
     if not api_key and client is None:
         raise MissingAPIKeyError(
-            "ANTHROPIC_API_KEY is not set. Copy .env.example to .env and add your key "
-            "(see https://console.anthropic.com/settings/keys)."
+            "GROQ_API_KEY is not set. Copy .env.example to .env and add your key "
+            "(free at https://console.groq.com/keys)."
         )
-    client = client or anthropic.Anthropic(api_key=api_key)
+    client = client or groq.Groq(api_key=api_key)
 
-    response = client.messages.parse(
-        model=model,
-        max_tokens=1024,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": _build_user_prompt(row, evidence)}],
-        output_format=InvestigationResult,
+    last_error = None
+    for _ in range(MAX_RETRIES + 1):
+        response = client.chat.completions.create(
+            model=model,
+            temperature=0.2,
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": _build_user_prompt(row, evidence)},
+            ],
+        )
+        raw_text = response.choices[0].message.content
+        try:
+            data = _parse_llm_json(raw_text)
+            data["transaction_id"] = row["transaction_id"]  # never trust the model to echo this correctly
+            result = InvestigationResult(**data)
+            result = _enforce_evidence_rule(result, evidence)
+            return result.model_dump()
+        except (json.JSONDecodeError, ValidationError, TypeError) as e:
+            last_error = e
+            continue
+
+    return _fallback_unresolved(
+        row["transaction_id"], f"AI returned invalid/unparseable output after {MAX_RETRIES + 1} attempts ({last_error})."
     )
-    result = response.parsed_output
-    result = _enforce_evidence_rule(result, evidence)
-    return result.model_dump()
 
 
 def investigate_all(classified_rows: list, model: str = DEFAULT_MODEL, verbose: bool = True) -> list:
@@ -176,14 +234,14 @@ def investigate_all(classified_rows: list, model: str = DEFAULT_MODEL, verbose: 
     call doesn't lose the rest of the batch; that row is recorded as
     UNRESOLVED with the error noted in `recommendation`.
     """
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise MissingAPIKeyError(
-            "ANTHROPIC_API_KEY is not set. Copy .env.example to .env and add your key "
-            "(see https://console.anthropic.com/settings/keys)."
+            "GROQ_API_KEY is not set. Copy .env.example to .env and add your key "
+            "(free at https://console.groq.com/keys)."
         )
 
-    client = anthropic.Anthropic(api_key=api_key)
+    client = groq.Groq(api_key=api_key)
     retriever = PolicyRetriever()
     results = []
 
@@ -193,15 +251,8 @@ def investigate_all(classified_rows: list, model: str = DEFAULT_MODEL, verbose: 
             print(f"[{i}/{len(exceptions)}] investigating {row['transaction_id']} ({row['exception_type']})...")
         try:
             results.append(investigate_exception(row, retriever=retriever, client=client, model=model))
-        except anthropic.APIError as e:
-            results.append({
-                "transaction_id": row["transaction_id"],
-                "probable_cause": None,
-                "evidence_used": [],
-                "confidence": 0.0,
-                "recommendation": f"NEEDS_HUMAN_REVIEW -- AI call failed ({type(e).__name__}: {e}).",
-                "status": "UNRESOLVED",
-            })
+        except groq.APIError as e:
+            results.append(_fallback_unresolved(row["transaction_id"], f"AI call failed ({type(e).__name__}: {e})."))
     return results
 
 
@@ -219,7 +270,6 @@ if __name__ == "__main__":
     }
     try:
         result = investigate_exception(demo_row)
-        import json
         print(json.dumps(result, indent=2))
     except MissingAPIKeyError as e:
         print(f"MissingAPIKeyError: {e}")
