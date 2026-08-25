@@ -22,7 +22,7 @@
   },
   "ai_resolution": null,
   "throughput": {
-    "elapsed_seconds": 0.0653,
-    "records_per_second": 1394.3
+    "elapsed_seconds": 0.0689,
+    "records_per_second": 1320.19
   }
 }
