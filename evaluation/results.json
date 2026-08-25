@@ -1,0 +1,28 @@
+{
+  "dataset": {
+    "total_records": 91,
+    "expected_matched": 35,
+    "expected_exceptions": 56
+  },
+  "reconciliation": {
+    "match_rate": 1.0,
+    "true_positives_exceptions": 56,
+    "false_positives_exceptions": 0,
+    "false_negatives_exceptions": 0,
+    "true_negatives_matched": 35,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "false_positive_rate": 0.0
+  },
+  "classification": {
+    "exception_type_accuracy": 0.9464,
+    "exception_type_correct": 53,
+    "exception_type_total": 56
+  },
+  "ai_resolution": null,
+  "throughput": {
+    "elapsed_seconds": 0.0653,
+    "records_per_second": 1394.3
+  }
+}
