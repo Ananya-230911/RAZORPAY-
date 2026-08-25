@@ -1,0 +1,89 @@
+payment_id,transaction_id,amount,date,method,merchant,status
+rzp_pay_0001,pay_0001,7020.73,2026-07-18,card,Northwind Traders,captured
+rzp_pay_0002,pay_0002,2741.88,2026-07-18,upi,Zenith Fitness,captured
+rzp_pay_0003,pay_0003,10663.66,2026-07-08,card,Wren & Co,captured
+rzp_pay_0004,pay_0004,5969.99,2026-06-14,card,Blue Leaf Cafe,captured
+rzp_pay_0005,pay_0005,5131.17,2026-07-06,card,Marigold Textiles,captured
+rzp_pay_0006,pay_0006,11340.38,2026-06-15,wallet,Wren & Co,captured
+rzp_pay_0007,pay_0007,20184.32,2026-07-19,card,Harbor Books,captured
+rzp_pay_0008,pay_0008,4055.89,2026-06-18,netbanking,Terra Foods,captured
+rzp_pay_0009,pay_0009,9622.2,2026-06-06,card,Cloudline SaaS,captured
+rzp_pay_0010,pay_0010,6760.12,2026-07-09,netbanking,Cloudline SaaS,captured
+rzp_pay_0011,pay_0011,3295.69,2026-07-05,wallet,Blue Leaf Cafe,captured
+rzp_pay_0012,pay_0012,7470.82,2026-07-06,card,Terra Foods,captured
+rzp_pay_0013,pay_0013,4968.76,2026-07-07,netbanking,Marigold Textiles,captured
+rzp_pay_0014,pay_0014,5851.88,2026-07-13,card,Northwind Traders,captured
+rzp_pay_0015,pay_0015,5973.21,2026-07-25,card,Harbor Books,captured
+rzp_pay_0016,pay_0016,11444.58,2026-06-18,wallet,Northwind Traders,captured
+rzp_pay_0017,pay_0017,9010.71,2026-06-24,upi,Cloudline SaaS,captured
+rzp_pay_0018,pay_0018,15947.46,2026-07-09,card,Harbor Books,captured
+rzp_pay_0019,pay_0019,11664.05,2026-06-11,upi,Wren & Co,captured
+rzp_pay_0020,pay_0020,8242.21,2026-07-14,upi,Harbor Books,captured
+rzp_pay_0021,pay_0021,996.09,2026-07-23,upi,Blue Leaf Cafe,captured
+rzp_pay_0022,pay_0022,1841.48,2026-06-18,wallet,Cloudline SaaS,captured
+rzp_pay_0023,pay_0023,16454.88,2026-06-14,netbanking,Marigold Textiles,captured
+rzp_pay_0024,pay_0024,6769.03,2026-06-10,wallet,Terra Foods,captured
+rzp_pay_0025,pay_0025,14697.73,2026-07-18,netbanking,Zenith Fitness,captured
+rzp_pay_0026,pay_0026,5639.15,2026-06-24,wallet,Marigold Textiles,captured
+rzp_pay_0027,pay_0027,18943.4,2026-06-06,wallet,Pixel Studio,captured
+rzp_pay_0028,pay_0028,4167.55,2026-07-11,upi,Northwind Traders,captured
+rzp_pay_0029,pay_0029,9664.16,2026-06-25,card,Terra Foods,captured
+rzp_pay_0030,pay_0030,21547.34,2026-07-06,netbanking,Nova Electronics,captured
+rzp_pay_0031,pay_0031,22142.75,2026-07-14,card,Blue Leaf Cafe,captured
+rzp_pay_0032,pay_0032,7478.8,2026-06-08,netbanking,Harbor Books,captured
+rzp_pay_0033,pay_0033,23854.64,2026-06-01,wallet,Pixel Studio,captured
+rzp_pay_0034,pay_0034,22833.17,2026-07-03,upi,Harbor Books,captured
+rzp_pay_0035,pay_0035,9473.06,2026-06-10,upi,Harbor Books,captured
+rzp_pay_0036,pay_0036,8239.07,2026-07-09,card,Pixel Studio,captured
+rzp_pay_0037,pay_0037,1636.54,2026-06-16,netbanking,Cloudline SaaS,captured
+rzp_pay_0038,pay_0038,12252.56,2026-07-17,card,Northwind Traders,captured
+rzp_pay_0039,pay_0039,16561.82,2026-06-09,upi,Wren & Co,captured
+rzp_pay_0040,pay_0040,21836.34,2026-07-04,netbanking,Pixel Studio,captured
+rzp_pay_0041,pay_0041,7930.56,2026-07-16,upi,Zenith Fitness,captured
+rzp_pay_0042,pay_0042,13035.88,2026-07-28,wallet,Cloudline SaaS,captured
+rzp_pay_0043,pay_0043,721.65,2026-06-22,card,Zenith Fitness,captured
+rzp_pay_0044,pay_0044,1960.63,2026-06-01,upi,Marigold Textiles,captured
+rzp_pay_0045,pay_0045,979.04,2026-07-28,card,Zenith Fitness,captured
+rzp_pay_0046,pay_0046,16790.65,2026-06-18,upi,Wren & Co,captured
+rzp_pay_0047,pay_0047,19658.56,2026-06-16,wallet,Pixel Studio,captured
+rzp_pay_0048,pay_0048,16542.77,2026-06-07,card,Zenith Fitness,captured
+rzp_pay_0049,pay_0049,18281.08,2026-07-26,wallet,Terra Foods,captured
+rzp_pay_0050,pay_0050,18259.7,2026-06-26,card,Northwind Traders,captured
+rzp_pay_0051,pay_0051,4917.18,2026-06-13,upi,Northwind Traders,captured
+rzp_pay_0052,pay_0052,4750.5,2026-06-28,upi,Nova Electronics,captured
+rzp_pay_0053,pay_0053,23096.99,2026-07-26,upi,Nova Electronics,captured
+rzp_pay_0054,pay_0054,16373.19,2026-06-04,card,Nova Electronics,captured
+rzp_pay_0055,pay_0055,23173.9,2026-06-06,card,Wren & Co,captured
+rzp_pay_0056,pay_0056,21643.33,2026-06-14,wallet,Nova Electronics,captured
+rzp_pay_0057,pay_0057,23177.65,2026-06-17,wallet,Blue Leaf Cafe,captured
+rzp_pay_0058,pay_0058,4909.47,2026-06-10,wallet,Wren & Co,captured
+rzp_pay_0059,pay_0059,7977.4,2026-07-18,card,Marigold Textiles,captured
+rzp_pay_0060,pay_0060,24027.32,2026-06-04,upi,Wren & Co,captured
+rzp_pay_0061,pay_0061,21573.12,2026-07-14,card,Northwind Traders,captured
+rzp_pay_0062,pay_0062,22279.13,2026-07-31,card,Terra Foods,captured
+rzp_pay_0063,pay_0063,2233.19,2026-07-10,card,Zenith Fitness,captured
+rzp_pay_0064,pay_0064,6666.99,2026-07-30,netbanking,Marigold Textiles,captured
+rzp_pay_0065,pay_0065,10015.49,2026-06-17,upi,Cloudline SaaS,captured
+rzp_pay_0066,pay_0066,23239.65,2026-06-21,wallet,Harbor Books,captured
+rzp_pay_0067,pay_0067,15604.75,2026-06-30,card,Northwind Traders,captured
+rzp_pay_0068,pay_0068,13533.33,2026-06-05,card,Marigold Textiles,captured
+rzp_pay_0069,pay_0069,23344.83,2026-06-09,netbanking,Wren & Co,captured
+rzp_pay_0070,pay_0070,7267.69,2026-06-24,upi,Northwind Traders,captured
+rzp_pay_0072,pay_0072,24599.56,2026-07-10,netbanking,Nova Electronics,captured
+rzp_pay_0071,pay_0071,24599.56,2026-07-10,netbanking,Nova Electronics,captured
+rzp_pay_0074,pay_0074,20464.18,2026-07-13,card,Wren & Co,captured
+rzp_pay_0073,pay_0073,20464.18,2026-07-13,card,Wren & Co,captured
+rzp_pay_0076,pay_0076,21977.55,2026-07-31,card,Harbor Books,captured
+rzp_pay_0075,pay_0075,21977.55,2026-07-31,card,Harbor Books,captured
+rzp_pay_0078,pay_0078,2854.49,2026-07-27,card,Harbor Books,captured
+rzp_pay_0077,pay_0077,2854.49,2026-07-27,card,Harbor Books,captured
+rzp_pay_0079,pay_0079,7187.56,2026-06-18,upi,Wren & Co,captured
+rzp_pay_0080,pay_0080,15929.1,2026-07-14,upi,Cloudline SaaS,captured
+rzp_pay_0081,pay_0081,22652.34,2026-06-17,wallet,Wren & Co,captured
+rzp_pay_0082,pay_0082,7061.67,2026-07-24,wallet,Northwind Traders,captured
+rzp_pay_0086,pay_0086,9356.56,2026-07-24,card,Pixel Studio,captured
+rzp_pay_0087,pay_0087,7844.81,2026-06-03,upi,Terra Foods,captured
+rzp_pay_0088,pay_0088,17115.25,2026-06-14,netbanking,Blue Leaf Cafe,captured
+rzp_pay_0089,pay_0089,18787.04,2026-07-10,wallet,Cloudline SaaS,captured
+rzp_pay_0090,pay_0090,10424.9,2026-07-27,upi,Pixel Studio,captured
+rzp_pay_0091,pay_0091,4148.11,2026-06-18,upi,Terra Foods,captured

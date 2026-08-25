@@ -1,0 +1,92 @@
+transaction_id,category,expected_status,expected_exception_type,expected_resolution,ground_truth_reason
+pay_0001,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0002,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0003,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0004,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0005,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0006,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0007,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0008,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0009,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0010,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0011,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0012,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0013,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0014,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0015,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0016,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0017,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0018,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0019,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0020,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0021,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0022,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0023,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0024,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0025,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0026,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0027,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0028,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0029,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0030,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0031,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0032,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0033,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0034,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0035,CLEAN_MATCH,MATCHED,NONE,NO_ACTION,All three records agree.
+pay_0036,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 125.19 deducted at settlement; matches fee policy.
+pay_0037,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 38.92 deducted at settlement; matches fee policy.
+pay_0038,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 192.27 deducted at settlement; matches fee policy.
+pay_0039,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 405.24 deducted at settlement; matches fee policy.
+pay_0040,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 419.94 deducted at settlement; matches fee policy.
+pay_0041,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 197.88 deducted at settlement; matches fee policy.
+pay_0042,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 211.31 deducted at settlement; matches fee policy.
+pay_0043,FEE_DEDUCTION,EXCEPTION,FEE_DEDUCTION,AUTO_EXPLAIN,Platform fee of 14.82 deducted at settlement; matches fee policy.
+pay_0044,PARTIAL_REFUND,EXCEPTION,PARTIAL_REFUND,AUTO_EXPLAIN,Partial refund of 763.33 issued; settlement reflects net amount.
+pay_0045,PARTIAL_REFUND,EXCEPTION,PARTIAL_REFUND,AUTO_EXPLAIN,Partial refund of 292.86 issued; settlement reflects net amount.
+pay_0046,PARTIAL_REFUND,EXCEPTION,PARTIAL_REFUND,AUTO_EXPLAIN,Partial refund of 4437.28 issued; settlement reflects net amount.
+pay_0047,PARTIAL_REFUND,EXCEPTION,PARTIAL_REFUND,AUTO_EXPLAIN,Partial refund of 8693.98 issued; settlement reflects net amount.
+pay_0048,PARTIAL_REFUND,EXCEPTION,PARTIAL_REFUND,AUTO_EXPLAIN,Partial refund of 5066.87 issued; settlement reflects net amount.
+pay_0049,PARTIAL_REFUND,EXCEPTION,PARTIAL_REFUND,AUTO_EXPLAIN,Partial refund of 7349.17 issued; settlement reflects net amount.
+pay_0050,FULL_REFUND,EXCEPTION,FULL_REFUND,AUTO_EXPLAIN,Transaction fully refunded; settlement amount is zero.
+pay_0051,FULL_REFUND,EXCEPTION,FULL_REFUND,AUTO_EXPLAIN,Transaction fully refunded; settlement amount is zero.
+pay_0052,FULL_REFUND,EXCEPTION,FULL_REFUND,AUTO_EXPLAIN,Transaction fully refunded; settlement amount is zero.
+pay_0053,FULL_REFUND,EXCEPTION,FULL_REFUND,AUTO_EXPLAIN,Transaction fully refunded; settlement amount is zero.
+pay_0054,FULL_REFUND,EXCEPTION,FULL_REFUND,AUTO_EXPLAIN,Transaction fully refunded; settlement amount is zero.
+pay_0055,AMOUNT_MISMATCH,EXCEPTION,AMOUNT_MISMATCH,HUMAN_REVIEW,Invoice amount does not match payment amount; likely invoicing error.
+pay_0056,AMOUNT_MISMATCH,EXCEPTION,AMOUNT_MISMATCH,HUMAN_REVIEW,Invoice amount does not match payment amount; likely invoicing error.
+pay_0057,AMOUNT_MISMATCH,EXCEPTION,AMOUNT_MISMATCH,HUMAN_REVIEW,Invoice amount does not match payment amount; likely invoicing error.
+pay_0058,AMOUNT_MISMATCH,EXCEPTION,AMOUNT_MISMATCH,HUMAN_REVIEW,Invoice amount does not match payment amount; likely invoicing error.
+pay_0059,AMOUNT_MISMATCH,EXCEPTION,AMOUNT_MISMATCH,HUMAN_REVIEW,Invoice amount does not match payment amount; likely invoicing error.
+pay_0060,AMOUNT_MISMATCH,EXCEPTION,AMOUNT_MISMATCH,HUMAN_REVIEW,Invoice amount does not match payment amount; likely invoicing error.
+pay_0061,MISSING_INVOICE,EXCEPTION,MISSING_INVOICE,HUMAN_REVIEW,No invoice was ever generated for this payment.
+pay_0062,MISSING_INVOICE,EXCEPTION,MISSING_INVOICE,HUMAN_REVIEW,No invoice was ever generated for this payment.
+pay_0063,MISSING_INVOICE,EXCEPTION,MISSING_INVOICE,HUMAN_REVIEW,No invoice was ever generated for this payment.
+pay_0064,MISSING_INVOICE,EXCEPTION,MISSING_INVOICE,HUMAN_REVIEW,No invoice was ever generated for this payment.
+pay_0065,MISSING_INVOICE,EXCEPTION,MISSING_INVOICE,HUMAN_REVIEW,No invoice was ever generated for this payment.
+pay_0066,MISSING_SETTLEMENT,EXCEPTION,MISSING_SETTLEMENT,AUTO_EXPLAIN,Payment captured recently; settlement is still pending (within normal T+2 window or delayed).
+pay_0067,MISSING_SETTLEMENT,EXCEPTION,MISSING_SETTLEMENT,AUTO_EXPLAIN,Payment captured recently; settlement is still pending (within normal T+2 window or delayed).
+pay_0068,MISSING_SETTLEMENT,EXCEPTION,MISSING_SETTLEMENT,AUTO_EXPLAIN,Payment captured recently; settlement is still pending (within normal T+2 window or delayed).
+pay_0069,MISSING_SETTLEMENT,EXCEPTION,MISSING_SETTLEMENT,AUTO_EXPLAIN,Payment captured recently; settlement is still pending (within normal T+2 window or delayed).
+pay_0070,MISSING_SETTLEMENT,EXCEPTION,MISSING_SETTLEMENT,AUTO_EXPLAIN,Payment captured recently; settlement is still pending (within normal T+2 window or delayed).
+pay_0072,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Duplicate of pay_0071: same amount/merchant/method charged twice.
+pay_0071,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Original transaction; pay_0072 appears to be a duplicate charge.
+pay_0074,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Duplicate of pay_0073: same amount/merchant/method charged twice.
+pay_0073,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Original transaction; pay_0074 appears to be a duplicate charge.
+pay_0076,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Duplicate of pay_0075: same amount/merchant/method charged twice.
+pay_0075,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Original transaction; pay_0076 appears to be a duplicate charge.
+pay_0078,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Duplicate of pay_0077: same amount/merchant/method charged twice.
+pay_0077,DUPLICATE_TRANSACTION,EXCEPTION,DUPLICATE_TRANSACTION,HUMAN_REVIEW,Original transaction; pay_0078 appears to be a duplicate charge.
+pay_0079,DATE_MISMATCH,EXCEPTION,DATE_MISMATCH,HUMAN_REVIEW,Settlement date falls far outside the normal T+2 settlement window.
+pay_0080,DATE_MISMATCH,EXCEPTION,DATE_MISMATCH,HUMAN_REVIEW,Settlement date falls far outside the normal T+2 settlement window.
+pay_0081,DATE_MISMATCH,EXCEPTION,DATE_MISMATCH,HUMAN_REVIEW,Settlement date falls far outside the normal T+2 settlement window.
+pay_0082,DATE_MISMATCH,EXCEPTION,DATE_MISMATCH,HUMAN_REVIEW,Settlement date falls far outside the normal T+2 settlement window.
+pay_0083,UNKNOWN_TRANSACTION,EXCEPTION,UNKNOWN_TRANSACTION,HUMAN_REVIEW,Settlement record has no matching payment or invoice in our system.
+pay_0084,UNKNOWN_TRANSACTION,EXCEPTION,UNKNOWN_TRANSACTION,HUMAN_REVIEW,Settlement record has no matching payment or invoice in our system.
+pay_0085,UNKNOWN_TRANSACTION,EXCEPTION,UNKNOWN_TRANSACTION,HUMAN_REVIEW,Settlement record has no matching payment or invoice in our system.
+pay_0086,AMBIGUOUS_EXCEPTION,EXCEPTION,AMBIGUOUS_MINOR_DIFFERENCE,HUMAN_REVIEW,Small unexplained difference of 8.74; no policy or evidence clearly accounts for it.
+pay_0087,AMBIGUOUS_EXCEPTION,EXCEPTION,AMBIGUOUS_MINOR_DIFFERENCE,HUMAN_REVIEW,Small unexplained difference of 13.59; no policy or evidence clearly accounts for it.
+pay_0088,AMBIGUOUS_EXCEPTION,EXCEPTION,AMBIGUOUS_MINOR_DIFFERENCE,HUMAN_REVIEW,Small unexplained difference of 10.34; no policy or evidence clearly accounts for it.
+pay_0089,UNRESOLVED,EXCEPTION,UNRESOLVED,UNRESOLVED,No combination of fee/refund/date evidence explains this gap; genuinely inconclusive.
+pay_0090,UNRESOLVED,EXCEPTION,UNRESOLVED,UNRESOLVED,No combination of fee/refund/date evidence explains this gap; genuinely inconclusive.
+pay_0091,UNRESOLVED,EXCEPTION,UNRESOLVED,UNRESOLVED,No combination of fee/refund/date evidence explains this gap; genuinely inconclusive.

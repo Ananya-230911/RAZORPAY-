@@ -1,0 +1,83 @@
+settlement_id,transaction_id,amount,date,fee_deducted,merchant
+stl_pay_0001,pay_0001,7020.73,2026-07-20,0.0,Northwind Traders
+stl_pay_0002,pay_0002,2741.88,2026-07-20,0.0,Zenith Fitness
+stl_pay_0003,pay_0003,10663.66,2026-07-10,0.0,Wren & Co
+stl_pay_0004,pay_0004,5969.99,2026-06-16,0.0,Blue Leaf Cafe
+stl_pay_0005,pay_0005,5131.17,2026-07-08,0.0,Marigold Textiles
+stl_pay_0006,pay_0006,11340.38,2026-06-17,0.0,Wren & Co
+stl_pay_0007,pay_0007,20184.32,2026-07-21,0.0,Harbor Books
+stl_pay_0008,pay_0008,4055.89,2026-06-20,0.0,Terra Foods
+stl_pay_0009,pay_0009,9622.2,2026-06-08,0.0,Cloudline SaaS
+stl_pay_0010,pay_0010,6760.12,2026-07-11,0.0,Cloudline SaaS
+stl_pay_0011,pay_0011,3295.69,2026-07-07,0.0,Blue Leaf Cafe
+stl_pay_0012,pay_0012,7470.82,2026-07-08,0.0,Terra Foods
+stl_pay_0013,pay_0013,4968.76,2026-07-09,0.0,Marigold Textiles
+stl_pay_0014,pay_0014,5851.88,2026-07-15,0.0,Northwind Traders
+stl_pay_0015,pay_0015,5973.21,2026-07-27,0.0,Harbor Books
+stl_pay_0016,pay_0016,11444.58,2026-06-20,0.0,Northwind Traders
+stl_pay_0017,pay_0017,9010.71,2026-06-26,0.0,Cloudline SaaS
+stl_pay_0018,pay_0018,15947.46,2026-07-11,0.0,Harbor Books
+stl_pay_0019,pay_0019,11664.05,2026-06-13,0.0,Wren & Co
+stl_pay_0020,pay_0020,8242.21,2026-07-16,0.0,Harbor Books
+stl_pay_0021,pay_0021,996.09,2026-07-25,0.0,Blue Leaf Cafe
+stl_pay_0022,pay_0022,1841.48,2026-06-20,0.0,Cloudline SaaS
+stl_pay_0023,pay_0023,16454.88,2026-06-16,0.0,Marigold Textiles
+stl_pay_0024,pay_0024,6769.03,2026-06-12,0.0,Terra Foods
+stl_pay_0025,pay_0025,14697.73,2026-07-20,0.0,Zenith Fitness
+stl_pay_0026,pay_0026,5639.15,2026-06-26,0.0,Marigold Textiles
+stl_pay_0027,pay_0027,18943.4,2026-06-08,0.0,Pixel Studio
+stl_pay_0028,pay_0028,4167.55,2026-07-13,0.0,Northwind Traders
+stl_pay_0029,pay_0029,9664.16,2026-06-27,0.0,Terra Foods
+stl_pay_0030,pay_0030,21547.34,2026-07-08,0.0,Nova Electronics
+stl_pay_0031,pay_0031,22142.75,2026-07-16,0.0,Blue Leaf Cafe
+stl_pay_0032,pay_0032,7478.8,2026-06-10,0.0,Harbor Books
+stl_pay_0033,pay_0033,23854.64,2026-06-03,0.0,Pixel Studio
+stl_pay_0034,pay_0034,22833.17,2026-07-05,0.0,Harbor Books
+stl_pay_0035,pay_0035,9473.06,2026-06-12,0.0,Harbor Books
+stl_pay_0036,pay_0036,8113.88,2026-07-11,125.19,Pixel Studio
+stl_pay_0037,pay_0037,1597.62,2026-06-18,38.92,Cloudline SaaS
+stl_pay_0038,pay_0038,12060.29,2026-07-19,192.27,Northwind Traders
+stl_pay_0039,pay_0039,16156.58,2026-06-11,405.24,Wren & Co
+stl_pay_0040,pay_0040,21416.4,2026-07-06,419.94,Pixel Studio
+stl_pay_0041,pay_0041,7732.68,2026-07-18,197.88,Zenith Fitness
+stl_pay_0042,pay_0042,12824.57,2026-07-30,211.31,Cloudline SaaS
+stl_pay_0043,pay_0043,706.83,2026-06-24,14.82,Zenith Fitness
+stl_pay_0044,pay_0044,1197.3,2026-06-03,0.0,Marigold Textiles
+stl_pay_0045,pay_0045,686.18,2026-07-30,0.0,Zenith Fitness
+stl_pay_0046,pay_0046,12353.37,2026-06-20,0.0,Wren & Co
+stl_pay_0047,pay_0047,10964.58,2026-06-18,0.0,Pixel Studio
+stl_pay_0048,pay_0048,11475.9,2026-06-09,0.0,Zenith Fitness
+stl_pay_0049,pay_0049,10931.91,2026-07-28,0.0,Terra Foods
+stl_pay_0050,pay_0050,0.0,2026-06-28,0.0,Northwind Traders
+stl_pay_0051,pay_0051,0.0,2026-06-15,0.0,Northwind Traders
+stl_pay_0052,pay_0052,0.0,2026-06-30,0.0,Nova Electronics
+stl_pay_0053,pay_0053,0.0,2026-07-28,0.0,Nova Electronics
+stl_pay_0054,pay_0054,0.0,2026-06-06,0.0,Nova Electronics
+stl_pay_0055,pay_0055,23173.9,2026-06-08,0.0,Wren & Co
+stl_pay_0056,pay_0056,21643.33,2026-06-16,0.0,Nova Electronics
+stl_pay_0057,pay_0057,23177.65,2026-06-19,0.0,Blue Leaf Cafe
+stl_pay_0058,pay_0058,4909.47,2026-06-12,0.0,Wren & Co
+stl_pay_0059,pay_0059,7977.4,2026-07-20,0.0,Marigold Textiles
+stl_pay_0060,pay_0060,24027.32,2026-06-06,0.0,Wren & Co
+stl_pay_0061,pay_0061,21573.12,2026-07-16,0.0,Northwind Traders
+stl_pay_0062,pay_0062,22279.13,2026-08-02,0.0,Terra Foods
+stl_pay_0063,pay_0063,2233.19,2026-07-12,0.0,Zenith Fitness
+stl_pay_0064,pay_0064,6666.99,2026-08-01,0.0,Marigold Textiles
+stl_pay_0065,pay_0065,10015.49,2026-06-19,0.0,Cloudline SaaS
+stl_pay_0071,pay_0071,24599.56,2026-07-12,0.0,Nova Electronics
+stl_pay_0073,pay_0073,20464.18,2026-07-15,0.0,Wren & Co
+stl_pay_0075,pay_0075,21977.55,2026-08-02,0.0,Harbor Books
+stl_pay_0077,pay_0077,2854.49,2026-07-29,0.0,Harbor Books
+stl_pay_0079,pay_0079,7187.56,2026-07-14,0.0,Wren & Co
+stl_pay_0080,pay_0080,15929.1,2026-08-11,0.0,Cloudline SaaS
+stl_pay_0081,pay_0081,22652.34,2026-07-08,0.0,Wren & Co
+stl_pay_0082,pay_0082,7061.67,2026-08-13,0.0,Northwind Traders
+stl_pay_0083,pay_0083,24498.99,2026-07-13,0.0,Cloudline SaaS
+stl_pay_0084,pay_0084,17700.55,2026-07-08,0.0,Pixel Studio
+stl_pay_0085,pay_0085,2066.05,2026-06-10,0.0,Wren & Co
+stl_pay_0086,pay_0086,9347.82,2026-07-26,0.0,Pixel Studio
+stl_pay_0087,pay_0087,7831.22,2026-06-05,0.0,Terra Foods
+stl_pay_0088,pay_0088,17104.91,2026-06-16,0.0,Blue Leaf Cafe
+stl_pay_0089,pay_0089,17946.43,2026-07-12,0.0,Cloudline SaaS
+stl_pay_0090,pay_0090,10181.41,2026-07-29,0.0,Pixel Studio
+stl_pay_0091,pay_0091,3487.09,2026-06-20,0.0,Terra Foods
