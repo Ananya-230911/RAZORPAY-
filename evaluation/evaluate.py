@@ -140,6 +140,38 @@ def run(data_dir: str = DEFAULT_DATA_DIR, ai_results: pd.DataFrame = None) -> di
     return results
 
 
+def run_with_ai(data_dir: str = DEFAULT_DATA_DIR, model: str = None) -> dict:
+    """
+    v2: full pipeline, timed end-to-end -- matcher -> classifier ->
+    investigator (Module 5, real Claude calls) -> decision (Module 6) ->
+    evaluate against ground truth, including AI-resolution metrics.
+    Requires ANTHROPIC_API_KEY (see .env.example); raises
+    agents.investigator.MissingAPIKeyError with a clear message if unset.
+    """
+    from agents.decision import decide_all
+    from agents.investigator import investigate_all
+
+    start = time.perf_counter()
+    classified = classify(run_matcher(data_dir))
+    exception_rows = classified[classified["status"] == "EXCEPTION"].to_dict("records")
+
+    kwargs = {"model": model} if model else {}
+    investigated = investigate_all(exception_rows, **kwargs)
+    decided = decide_all(investigated)
+    elapsed = time.perf_counter() - start
+
+    ai_results = pd.DataFrame(decided).rename(columns={"status": "ai_status"})
+
+    ground_truth = pd.read_csv(os.path.join(data_dir, "ground_truth.csv"))
+    results = evaluate(classified, ground_truth, ai_results=ai_results, elapsed_seconds=elapsed)
+
+    os.makedirs(os.path.dirname(RESULTS_PATH), exist_ok=True)
+    with open(RESULTS_PATH, "w") as f:
+        json.dump(results, f, indent=2)
+
+    return results, classified, decided
+
+
 def print_report(results: dict):
     d, r, c, t = results["dataset"], results["reconciliation"], results["classification"], results["throughput"]
     print("=" * 60)
@@ -172,8 +204,13 @@ def print_report(results: dict):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate FinControl AI against ground truth")
     parser.add_argument("--data-dir", default=DEFAULT_DATA_DIR)
+    parser.add_argument("--with-ai", action="store_true",
+                         help="Also run the investigation agent + decision layer (requires ANTHROPIC_API_KEY)")
     args = parser.parse_args()
 
-    results = run(args.data_dir)
+    if args.with_ai:
+        results, _, _ = run_with_ai(args.data_dir)
+    else:
+        results = run(args.data_dir)
     print_report(results)
     print(f"\nFull report written to {RESULTS_PATH}")
