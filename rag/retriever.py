@@ -161,8 +161,12 @@ def build_query(exception_type: str, row: dict) -> str:
                       f"difference {round(diff, 2)} which is {round(ratio, 2)} percent of payment")
     if invoice_amt is not None and payment_amt is not None and invoice_amt != payment_amt:
         parts.append(f"invoice amount {invoice_amt} differs from payment amount {payment_amt}")
-    if date_gap is not None:
-        parts.append(f"settlement date gap {date_gap} days after payment")
+    # Only mention timing when it's actually anomalous. A normal ~T+2 gap
+    # shares heavy wording with settlement_policy.md's boilerplate ("T+2",
+    # "2 days after payment date") and would out-rank a more relevant
+    # fee/refund match on pure TF-IDF overlap for no diagnostic reason.
+    if date_gap is not None and abs(date_gap - 2) > 3:
+        parts.append(f"settlement date arrived {date_gap} days after payment, far outside the normal window")
     if row.get("records_present"):
         parts.append(f"records present {row['records_present']}")
     if row.get("is_duplicate"):
