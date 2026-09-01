@@ -48,7 +48,7 @@ st.dataframe(
         "payment_amt": "{:.2f}", "invoice_amt": "{:.2f}",
         "settlement_amt": "{:.2f}", "difference": "{:.2f}",
     }, na_rep="—"),
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
     height=560,
 )

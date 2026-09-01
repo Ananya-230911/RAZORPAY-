@@ -47,7 +47,7 @@ display["actor"] = display["actor"].apply(lambda a: f"{actor_icon.get(a.split(' 
 
 st.dataframe(
     display[["timestamp", "actor", "action", "transaction_id", "evidence_ref", "details"]],
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
     height=600,
 )

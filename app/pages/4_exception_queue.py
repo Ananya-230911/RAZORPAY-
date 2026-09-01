@@ -54,7 +54,7 @@ display_cols = [
 ]
 st.dataframe(
     filtered[display_cols].style.format({"difference": "{:.2f}", "confidence": "{:.0%}"}, na_rep="—"),
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
     height=560,
 )
