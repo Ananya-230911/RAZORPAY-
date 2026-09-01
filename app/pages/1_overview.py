@@ -1,0 +1,94 @@
+"""
+FinControl AI - Overview page (Module 10, page 1)
+=====================================================
+Totals, match rate, exception rate, AI-resolved vs. unresolved, and
+throughput. Every number here comes straight from fincontrol.db and
+evaluation/results.json -- nothing is hand-typed.
+"""
+
+import os
+import sys
+
+import pandas as pd
+import streamlit as st
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+from app.common import get_investigations, load_results, require_data, simulated_banner  # noqa: E402
+from database.db import get_transactions  # noqa: E402
+
+st.set_page_config(page_title="Overview – FinControl AI", page_icon="\U0001f4a0", layout="wide")
+st.title("Overview")
+simulated_banner()
+
+conn = require_data()
+tx = get_transactions(conn)
+investigations = get_investigations(conn)
+results = load_results()
+conn.close()
+
+if results is None:
+    st.warning("No evaluation report yet. Run `python -m evaluation.evaluate` from a terminal, then reload.")
+    st.stop()
+
+d = results["dataset"]
+r = results["reconciliation"]
+c = results["classification"]
+t = results["throughput"]
+ai = results.get("ai_resolution")
+
+st.subheader("At a glance")
+row1 = st.columns(4)
+row1[0].metric("Total records", d["total_records"])
+row1[1].metric("Reconciliation match rate", f"{r['match_rate']:.1%}")
+row1[2].metric("Exception rate", f"{d['expected_exceptions'] / d['total_records']:.1%}")
+row1[3].metric("Throughput", f"{t['records_per_second']:,.0f} rec/sec" if t["records_per_second"] else "—")
+
+row2 = st.columns(4)
+row2[0].metric("Exception detection F1", f"{r['f1']:.1%}")
+row2[1].metric("False positive rate", f"{r['false_positive_rate']:.1%}")
+row2[2].metric("Exception-type accuracy", f"{c['exception_type_accuracy']:.1%}")
+if ai:
+    row2[3].metric("AI resolution accuracy", f"{ai['resolution_accuracy']:.1%}")
+else:
+    row2[3].metric("AI resolution accuracy", "—")
+
+st.divider()
+
+col_a, col_b = st.columns(2)
+
+with col_a:
+    st.subheader("Reconciliation status")
+    status_counts = tx["status"].value_counts().rename_axis("status").reset_index(name="count")
+    st.bar_chart(status_counts.set_index("status"))
+
+with col_b:
+    st.subheader("Exception types")
+    exc = tx[tx["status"] == "EXCEPTION"]
+    if not exc.empty:
+        type_counts = exc["exception_type"].value_counts().rename_axis("exception_type").reset_index(name="count")
+        st.bar_chart(type_counts.set_index("exception_type"))
+    else:
+        st.caption("No exceptions in this batch.")
+
+if ai:
+    st.divider()
+    st.subheader("AI investigation outcome")
+    col_c, col_d = st.columns(2)
+    with col_c:
+        st.metric("AI resolved", ai["resolved_count"])
+        st.metric("System UNRESOLVED", ai["system_unresolved_count"])
+        st.metric("Ground-truth UNRESOLVED", ai["true_unresolved_count"])
+        st.metric("False auto-resolves", ai["false_auto_resolve_count"],
+                   help="AI said RESOLVED with high confidence but got the cause wrong -- "
+                        "the dangerous case this system is designed to catch.")
+    with col_d:
+        if not investigations.empty:
+            decision_counts = investigations["decision"].value_counts().rename_axis("decision").reset_index(name="count")
+            st.bar_chart(decision_counts.set_index("decision"))
+else:
+    st.divider()
+    st.caption(
+        "AI investigation hasn't run yet. Add `GROQ_API_KEY` to `.env` (free at "
+        "console.groq.com/keys) and run `python -m evaluation.evaluate --with-ai`."
+    )
