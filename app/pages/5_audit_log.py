@@ -19,7 +19,6 @@ from database.db import get_audit_log  # noqa: E402
 st.set_page_config(page_title="Audit Log – FinControl AI", page_icon="\U0001f4a0", layout="wide")
 apply_theme()
 st.title("Audit Log")
-st.caption("Every write to the database, timestamped — who (or what) did it, and why.")
 
 conn = require_data()
 audit = get_audit_log(conn)

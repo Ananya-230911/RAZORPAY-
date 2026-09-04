@@ -21,7 +21,6 @@ from rag.retriever import PolicyRetriever, build_query  # noqa: E402
 st.set_page_config(page_title="Investigation – FinControl AI", page_icon="\U0001f50d", layout="wide")
 apply_theme()
 st.title("Exception Investigation")
-st.caption("One case's full trail: mismatch → evidence → AI reasoning → confidence → decision.")
 
 conn = require_data()
 tx = get_transactions(conn)

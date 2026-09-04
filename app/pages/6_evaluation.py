@@ -18,7 +18,6 @@ from evaluation.evaluate import run as run_evaluation  # noqa: E402
 st.set_page_config(page_title="Evaluation – FinControl AI", page_icon="\U0001f4a0", layout="wide")
 apply_theme()
 st.title("Evaluation")
-st.caption("Every number below is read from evaluation/results.json — nothing hand-typed.")
 
 results = load_results()
 

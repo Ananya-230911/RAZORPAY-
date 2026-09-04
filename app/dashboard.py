@@ -24,7 +24,6 @@ st.set_page_config(page_title="FinControl AI", page_icon="\U0001f4a0", layout="w
 apply_theme()
 
 st.title("\U0001f4a0 FinControl AI")
-st.caption("AI Finance Controller — Razorpay AI Buildathon 2026, Track 4")
 
 st.markdown(
     """
@@ -62,15 +61,3 @@ else:
             "AI investigation hasn't run yet (needs `GROQ_API_KEY` in `.env`). "
             "Reconciliation and classification results below are already real and final."
         )
-
-st.divider()
-st.markdown(
-    """
-**Pages** (see the sidebar): **Overview** · **Reconciliation Table** ·
-**Exception Investigation** · **Exception Queue** · **Audit Log** · **Evaluation**
-
-Start with **Overview** for the big picture, or jump straight to **Exception Investigation**
-to see one case's full trail: mismatch → evidence → AI reasoning → confidence →
-recommendation → human decision.
-"""
-)

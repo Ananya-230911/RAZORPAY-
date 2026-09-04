@@ -18,7 +18,6 @@ from database.db import get_transactions  # noqa: E402
 st.set_page_config(page_title="Reconciliation – FinControl AI", page_icon="\U0001f4a0", layout="wide")
 apply_theme()
 st.title("Reconciliation Table")
-st.caption("Every transaction, as produced by the deterministic matcher + classifier — no AI involved.")
 
 conn = require_data()
 tx = get_transactions(conn)

@@ -20,7 +20,6 @@ from database.db import get_transactions  # noqa: E402
 st.set_page_config(page_title="Overview – FinControl AI", page_icon="\U0001f4a0", layout="wide")
 apply_theme()
 st.title("Overview")
-st.caption("The headline numbers, straight from evaluation/results.json — nothing hand-typed.")
 
 conn = require_data()
 tx = get_transactions(conn)

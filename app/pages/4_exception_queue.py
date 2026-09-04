@@ -18,7 +18,6 @@ from database.db import get_transactions  # noqa: E402
 st.set_page_config(page_title="Exception Queue – FinControl AI", page_icon="\U0001f4a0", layout="wide")
 apply_theme()
 st.title("Exception Queue")
-st.caption("Triage view — filter by type, decision, or confidence.")
 
 conn = require_data()
 tx = get_transactions(conn)
