@@ -86,6 +86,3 @@ with st.container(border=True):
     cols = st.columns(2)
     cols[0].metric("Records / second", f"{t['records_per_second']:,.0f}" if t["records_per_second"] else "—")
     cols[1].metric("Elapsed", f"{t['elapsed_seconds']:.3f}s" if t["elapsed_seconds"] else "—")
-
-with st.expander("Raw evaluation/results.json"):
-    st.json(results)
