@@ -63,7 +63,7 @@ by `python -m evaluation.evaluate --with-ai`.
 |---|---|---|
 | Language | Python | Data + AI ecosystem |
 | Data processing | pandas | Deterministic matching engine |
-| LLM | [Groq](https://groq.com) (Llama 3.3 70B), free tier | Only one agentic hop needed; JSON-mode + code-side schema validation |
+| LLM | [Groq](https://groq.com) (`openai/gpt-oss-120b`), free tier | Only one agentic hop needed; JSON-mode + code-side schema validation |
 | RAG | Pure-stdlib TF-IDF over local markdown | 4 short policy docs don't need a vector DB for this scale |
 | DB | SQLite | Zero setup, file-based, full audit trail |
 | Dashboard | Streamlit | Fast to build, good for a demo |

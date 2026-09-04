@@ -66,7 +66,7 @@ anything downstream trusts it.
 
 ### 5. Investigation Agent — `agents/investigator.py` (the only AI call)
 - **Input:** one classified exception + its evidence (Module 4).
-- **Processing:** calls Groq (Llama 3.3 70B) with JSON-mode and a strict system
+- **Processing:** calls Groq (`openai/gpt-oss-120b`) with JSON-mode and a strict system
   prompt. Parses the response into a pydantic `InvestigationResult`
   (`probable_cause`, `evidence_used`, `confidence`, `recommendation`, `status`),
   retrying once on malformed JSON before honestly returning `UNRESOLVED`. Then

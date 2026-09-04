@@ -5,7 +5,7 @@ Module 5 of the pipeline. THE ONLY PLACE AN LLM IS CALLED IN THIS SYSTEM.
 Everything upstream (matching, classification) and downstream (routing)
 is deterministic Python -- see reconciliation/ and agents/decision.py.
 
-Uses Groq (free tier) running Llama 3.3 70B, via Groq's OpenAI-compatible
+Uses Groq (free tier), via Groq's OpenAI-compatible
 chat completions API with JSON mode. Groq doesn't offer a schema-enforced
 structured-output helper (unlike some other providers), so this module
 does its own two-layer validation instead of trusting the raw model
@@ -36,7 +36,7 @@ from rag.retriever import PolicyRetriever, build_query
 
 load_dotenv()
 
-DEFAULT_MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+DEFAULT_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 
 # Hard rule from the master build prompt: a RESOLVED status with confidence
 # above this bar requires non-empty cited evidence, or it gets downgraded.

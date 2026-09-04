@@ -66,7 +66,7 @@ def investigate_and_decide(classified: pd.DataFrame, skip_ai: bool):
         print("      The dashboard will still show all reconciliation/classification results.")
         return None
 
-    print(f"[3/6] Investigating {len(exception_rows)} exceptions with Groq (Llama 3.3 70B)...")
+    print(f"[3/6] Investigating {len(exception_rows)} exceptions with Groq...")
     try:
         investigated = investigate_all(exception_rows)
     except MissingAPIKeyError as e:
