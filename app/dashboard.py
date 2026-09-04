@@ -55,9 +55,3 @@ else:
         c3.metric("Exceptions", int((tx_df["status"] == "EXCEPTION").sum()))
         c4.metric("AI resolved", ai["resolved_count"] if ai else "—")
         c5.metric("Unresolved", ai["system_unresolved_count"] if ai else "—")
-
-    if ai is None:
-        st.caption(
-            "AI investigation hasn't run yet (needs `GROQ_API_KEY` in `.env`). "
-            "Reconciliation and classification results below are already real and final."
-        )

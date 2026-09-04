@@ -98,7 +98,4 @@ if ai:
             decision_counts = investigations["decision"].value_counts().rename_axis("decision").reset_index(name="count")
             st.bar_chart(decision_counts.set_index("decision"), color=["#3b82f6"])
 else:
-    st.caption(
-        "🤖 AI investigation hasn't run yet. Add `GROQ_API_KEY` to `.env` (free at "
-        "console.groq.com/keys) and run `python -m evaluation.evaluate --with-ai`."
-    )
+    st.caption("🤖 AI investigation pending.")

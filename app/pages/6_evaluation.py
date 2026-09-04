@@ -29,10 +29,7 @@ with st.container(border=True):
                 results = run_evaluation()
             st.success("Done — evaluation/results.json updated.")
     with col_note:
-        st.caption(
-            "This re-runs the deterministic part only (Module 2+3+9). To refresh the AI-resolution "
-            "numbers below, run `python -m evaluation.evaluate --with-ai` from a terminal (uses your Groq quota)."
-        )
+        st.caption("Refreshes reconciliation + classification metrics.")
 
 if results is None:
     st.warning("No results yet. Click the button above, or run `python -m evaluation.evaluate` from a terminal.")
@@ -82,10 +79,7 @@ if ai:
                  "system is built to prevent from reaching a human as a confident, unsupported claim.",
         )
 else:
-    st.info(
-        "Not run yet. Add `GROQ_API_KEY` to `.env` (free at console.groq.com/keys), then run "
-        "`python -m evaluation.evaluate --with-ai` from a terminal."
-    )
+    st.info("AI resolution metrics pending.")
 
 st.subheader("⚡ Throughput")
 with st.container(border=True):

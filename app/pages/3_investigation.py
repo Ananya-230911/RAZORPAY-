@@ -71,10 +71,7 @@ else:
 # --- 3. AI reasoning (Module 5+6) --------------------------------------------
 st.subheader("3. AI investigation")
 if investigation is None:
-    st.info(
-        "Not yet investigated. Add `GROQ_API_KEY` to `.env` and run "
-        "`python -m evaluation.evaluate --with-ai` (or `python run.py`) to populate this."
-    )
+    st.info("Investigation pending.")
 else:
     with st.container(border=True):
         badges = st.columns([1, 1, 2])
