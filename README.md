@@ -146,5 +146,4 @@ not a guess.
 - [x] README.md (this file), ARCHITECTURE.md, EVALUATION.md, SECURITY.md
 - [x] Real, reproducible metrics in `evaluation/results.json`
 - [x] `docs/FAILURES.md` — real bugs + deliberate break tests, with captured output
-- [ ] 5-minute pitch video
-- [ ] Confirm the actual application deadline on razorpay.com/buildathon before submitting
+
